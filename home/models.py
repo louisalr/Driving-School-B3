@@ -10,7 +10,7 @@ class School(models.Model):
 
 class Customer(AbstractUser):
     isManager = models.BooleanField(default=False)
-    school = models.ForeignKey(School, on_delete=models.CASCADE, null=True)
+    school = models.ManyToManyField(School, on_delete=models.CASCADE, null=True)
 
 
 class Booking(models.Model):
