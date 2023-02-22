@@ -8,4 +8,9 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return School.objects.order_by('marque')[:5]
+        return School.objects.order_by('name')[:5]
+
+
+class DetailView(generic.DetailView):
+    model = School
+    template_name = 'home/detail.html'
