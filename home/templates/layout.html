@@ -2,19 +2,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- META -->
     <meta charset="UTF-8">
-    <title>Driving School</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!-- CSS CUSTOM -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- CSS GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <!-- TITLE -->
+    <title>Driving School</title>
 </head>
 <body>
-    {% block header %}
-    {% endblock %}
+    <header>
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href=""><i class="bi bi-car-front-fill text-danger"></i>&nbsp;Driving School</a>
+                <form class="d-flex">
+                    <input hidden class="form-control me-2 .d-none" type="search" placeholder="Search" aria-label="Search">
+                    <button hidden class="btn btn-secondary me-2"><i class="bi bi-search"></i></button>
+    
+                    {% if user.is_authenticated %}
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ user.username }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                {% if user.is_staff %}
+                                    <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
+                                {% endif %}
+                                <a class="dropdown-item" href="">Logout</a>
+                            </div>
+                        </div>
+    
+                    {% else %}
+                        <a href="" class="btn btn-primary">Login</a>
+                    {% endif %}
+    
+                </form>
+            </div>
+        </nav>
+    </header>
 
     {% block content %}
     {% endblock %}
 
-    {% block footer %}
-    {% endblock %}
-
+    <div class="container mt-4">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <p class="col-md-4 mb-0 text-muted">© 2023 Driving School</p>
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+            </ul>
+        </footer>
+    </div>
 </body>
 </html>

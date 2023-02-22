@@ -10,7 +10,7 @@ class School(models.Model):
 
 class Customer(AbstractUser):
     isManager = models.BooleanField(default=False)
-    school = models.ManyToManyField(School ,null=True)
+    school = models.ManyToManyField(School)
 
 
 class Booking(models.Model):
