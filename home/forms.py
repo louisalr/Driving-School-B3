@@ -1,11 +1,11 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from home.models import Customer
 
 
-
 class RegistrationForm(UserCreationForm):
     """docstring for RegistrationForm"""
+
     class Meta:  # define a metadata related to this class
         model = Customer
         fields = (
@@ -23,24 +23,29 @@ class RegistrationForm(UserCreationForm):
         self.fields['email'].widget.attrs['required'] = 'required'
         self.fields['first_name'].widget.attrs['required'] = 'required'
         self.fields['last_name'].widget.attrs['required'] = 'required'
-        self.fields['email'].widget.attrs.update({'class': 'form-control mb-1', 
-                                                    'autocomplete':'off',
-                                                    'placeholder': 'Email',
-                                                    'type': 'mail'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control mb-1',
+                                                  'autocomplete': 'off',
+                                                  'placeholder': 'Email',
+                                                  'type': 'mail'})
         self.fields['first_name'].widget.attrs.update({'class': 'form-control mb-1',
-                                                    'autocomplete':'off',
-                                                    'placeholder': 'First Name'})
+                                                       'autocomplete': 'off',
+                                                       'placeholder': 'First Name'})
         self.fields['last_name'].widget.attrs.update({'class': 'form-control mb-1',
-                                                    'autocomplete':'off',
-                                                    'placeholder': 'Last Name'})
+                                                      'autocomplete': 'off',
+                                                      'placeholder': 'Last Name'})
         self.fields['password1'].widget.attrs.update({'class': 'form-control mb-1',
-                                                    'autocomplete':'off',
-                                                    'placeholder': 'Password',
-                                                    'type': 'password'})
+                                                      'autocomplete': 'off',
+                                                      'placeholder': 'Password',
+                                                      'type': 'password'})
         self.fields['password2'].widget.attrs.update({'class': 'form-control mb-1',
-                                                    'autocomplete':'off',
-                                                    'placeholder': 'Confirm Password',
-                                                    'type': 'password'})
+                                                      'autocomplete': 'off',
+                                                      'placeholder': 'Confirm Password',
+                                                      'type': 'password'})
         self.fields['is_school'].widget.attrs.update({'class': 'form-check-input'})
 
 
+class LoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password'].widget.attrs.update({'class': 'form-control'})

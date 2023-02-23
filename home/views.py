@@ -1,11 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from home.forms import RegistrationForm
+from home.forms import RegistrationForm, LoginForm
 from home.models import School
 
 
@@ -24,7 +23,7 @@ class DetailView(generic.DetailView):
 
 def login_request(request):
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
+        form = LoginForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -42,7 +41,7 @@ def login_request(request):
         return redirect("home:index")
     # Else show him the login form
     else:
-        form = AuthenticationForm()
+        form = LoginForm()
         return render(request=request, template_name="registration/login.html", context={"form": form})
 
 
@@ -60,6 +59,7 @@ class SignUpView(generic.CreateView):
 class IndexAccountView(generic.ListView):
     template_name = 'account/profile.html'
     context_object_name = 'reservations'
+    # Returns user informations && the school associated to
 
     def get_queryset(self):
         return School.objects.all()
