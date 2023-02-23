@@ -122,3 +122,5 @@ AUTH_USER_MODEL = "home.Customer"
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+LOGIN_REDIRECT_URL = '/account'
