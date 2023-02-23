@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from home.forms import RegistrationForm, LoginForm
-from home.models import School
+from home.models import School, Customer
 
 
 class IndexView(generic.ListView):
@@ -56,10 +56,13 @@ class SignUpView(generic.CreateView):
     template_name = "home/register.html"
 
 
-class IndexAccountView(generic.ListView):
-    template_name = 'account/profile.html'
-    context_object_name = 'reservations'
-    # Returns user informations && the school associated to
+class SchoolIndexView(generic.ListView):
+    template_name = 'home/school_list.html'
+    context_object_name = 'schools'
 
     def get_queryset(self):
         return School.objects.all()
+
+
+def indexAccountView(request):
+    return render(request, template_name="account/profile.html")
