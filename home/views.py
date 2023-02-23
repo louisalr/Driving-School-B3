@@ -4,11 +4,11 @@ from home.models import School
 
 class IndexView(generic.ListView):
     template_name = 'home/index.html'
-    context_object_name = 'cars'
+    context_object_name = 'schools'
 
     def get_queryset(self):
-        """Return the last five published questions."""
-        return School.objects.order_by('name')[:5]
+        return School.objects.all()
+        
 
 
 class DetailView(generic.DetailView):

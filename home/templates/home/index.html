@@ -1,9 +1,56 @@
 {% extends 'layout.html'%}
+{% load static %}
 
 {% block content %}
 
-<div class="container">
-
+<div class="bg-white">
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="{% static 'img/img_car_home.jpg' %}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">The Driving School</h1>
+        <p class="lead"><i class="bi bi-car-front-fill text-white-green"></i>&nbsp;Driving school is a directory tool to find the best driving school and the most suitable time for you. We make it easy for you by centralising all the information!</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <a href="#cible-findaschool" class="btn btn-white-green btn-lg px-4 me-md-2">Find a driving school</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
+
+{% if schools %}
+<section id="cible-findaschool">
+<div class="bg-light">
+<div class="container overflow-hidden pb-5 pt-5">
+    <div class="row gy-4">
+        {% for school in schools %}
+        <div class="col-12 col-md-4">
+            <div class="p-3 border bg-white rounded shadow-sm" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseWidthExample{{ school.id }}" aria-expanded="false"
+                aria-controls="collapseWidthExample{{ school.id }}">
+                <p class="text-center">
+                    <span class="text-dark fw-bold"><mark class="mark-white-white-green">{{ school.name }}</mark></span><br>
+                    <small style="font-size: 14px;">{{ school.address }}</small>
+                </p>
+                <div class="d-flex justify-content-center">
+                    <div class="collapse collapse-vertical mx-auto" id="collapseWidthExample{{ school.id }}">
+                        <div class="card card-body w-100 overflow-hidden">
+                            <p>{{ school.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+</section>
+{% endif %}
 
 {% endblock %}

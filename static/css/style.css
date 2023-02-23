@@ -1,0 +1,21 @@
+html {
+    scroll-behavior: smooth;
+   }
+
+/* Color code : #5AE4A7 */
+.text-white-green{
+    color: #5AE4A7;
+}
+
+.btn-white-green{
+    background-color: #5AE4A7;
+    border-color: #5AE4A7;
+}
+
+/* Color code : #D5F8E5 */
+.mark-white-white-green{
+    background-color: #D5F8E5;
+    display: inline-block;
+    line-height: 0em;
+    padding-bottom: 0.5em;
+}

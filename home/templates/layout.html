@@ -8,8 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <!-- CSS CUSTOM -->
+    <!-- CSS BOOSTRAP -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- CSS CUSTOM -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!-- CSS GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,27 +27,15 @@
     <header>
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href=""><i class="bi bi-car-front-fill text-danger"></i>&nbsp;Driving School</a>
+                <a class="navbar-brand" href=""><i class="bi bi-car-front-fill text-white-green"></i>&nbsp;Driving School</a>
                 <form class="d-flex">
                     <input hidden class="form-control me-2 .d-none" type="search" placeholder="Search" aria-label="Search">
                     <button hidden class="btn btn-secondary me-2"><i class="bi bi-search"></i></button>
     
                     {% if user.is_authenticated %}
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuLink"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ user.username }}
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                {% if user.is_staff %}
-                                    <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
-                                {% endif %}
-                                <a class="dropdown-item" href="">Logout</a>
-                            </div>
-                        </div>
-    
+                        <a href="" class="btn btn-danger btn-sm">Logout</a>
                     {% else %}
-                        <a href="" class="btn btn-primary">Login</a>
+                        <a href="" class="btn btn-primary btn-sm">Login</a>
                     {% endif %}
     
                 </form>
