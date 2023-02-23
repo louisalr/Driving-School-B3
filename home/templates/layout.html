@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FAVICON -->
+    <link rel="Cactus Icon" href="{% static 'ico/fiat_500.ico' %}"/>
     <!-- CSS ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- CSS BOOSTRAP -->
@@ -28,16 +30,16 @@
     <header>
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'home:index' %}"><i class="bi bi-car-front-fill text-white-green"></i>&nbsp;Driving School</a>
+                <a class="navbar-brand" href="{% url 'home:index' %}"><img src="{% static 'ico/fiat_500.ico' %}" alt="" width="26" height="26">&nbsp;Driving School</a>
                 <form class="d-flex">
                     <input hidden class="form-control me-2 .d-none" type="search" placeholder="Search" aria-label="Search">
                     <button hidden class="btn btn-secondary me-2"><i class="bi bi-search"></i></button>
     
                     {% if user.is_authenticated %}
-                        <a href="{% url 'home:account' %}" class="btn btn-success btn-sm">Account</a>
-                        <a href="{% url 'home:logout' %}" class="btn btn-danger btn-sm">Logout</a>
+                        <a href="{% url 'home:account' %}" class="btn btn-white-blue btn-sm me-2">Account</a>
+                        <a href="{% url 'home:logout' %}" class="btn btn-white-red btn-sm">Logout</a>
                     {% else %}
-                        <a href="{% url 'home:login' %}" class="btn btn-success">Login</a>
+                        <a href="{% url 'home:login' %}" class="btn btn-white-blue btn-sm">Login</a>
                     {% endif %}
     
                 </form>

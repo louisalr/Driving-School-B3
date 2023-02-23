@@ -7,6 +7,7 @@
     <main class="form-signin w-100 m-auto">
         <form class="text-center" method="POST">
             {% csrf_token %}
+            <img src="{% static 'ico/fiat_500.ico' %}" alt="" width="72" height="72">
             <h1 class="h3 mb-3 fw-normal">Please Sign-Up</h1>
             <p>Already have an account  ? <a href="{% url 'home:login' %}">Login</a></p>
 

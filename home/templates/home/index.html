@@ -11,7 +11,7 @@
       </div>
       <div class="col-lg-6">
         <h1 class="display-5 fw-bold lh-1 mb-3">The Driving School</h1>
-        <p class="lead"><i class="bi bi-car-front-fill text-white-green"></i>&nbsp;Driving school is a directory tool to find the best driving school and the most suitable time for you. We make it easy for you by centralising all the information!</p>
+        <p class="lead">Driving school is a directory tool to find the best driving school and the most suitable time for you. We make it easy for you by centralising all the information!</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
           <a href="#cible-findaschool" class="btn btn-white-green btn-lg px-4 me-md-2">Find a driving school</a>
         </div>
@@ -26,7 +26,14 @@
 {% if schools %}
 <section id="cible-findaschool">
 <div class="bg-light">
-<div class="container overflow-hidden pb-5 pt-5">
+  <div id="faq-section-title" class="text-center py-4">
+    <h2 class="fs-1 fw-bold text-dark">Our driving 
+      <span class="text-white-blue">schools</span>
+    </h2>
+    <h6 class="lh-base w-75 mx-auto">We have sorted our driving schools by availability, so you can see the most available driving schools right in front of you.</h6>
+    <div style="width: 60px;" class="mx-auto border border-secondary"></div>
+  </div>
+<div class="container overflow-hidden pb-3 pt-4">
     <div class="row gy-4">
         {% for school in schools %}
         <div class="col-12 col-md-4">
@@ -47,6 +54,10 @@
             </div>
         </div>
         {% endfor %}
+
+    </div>
+    <div class="d-flex justify-content-center align-items-center mt-2">
+      <a href="{% url 'home:schools' %}" alt="See all driving schools" type="button" class="btn btn-white-green btn-circle btn-xl"><i class="bi bi-plus  "></i></a>
     </div>
 </div>
 </div>

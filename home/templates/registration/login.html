@@ -1,25 +1,26 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block content %}
+<main class="form-signin w-100 m-auto">
+  <form class="text-center" method="POST">
+    {% csrf_token %}
+    <img src="{% static 'ico/fiat_500.ico' %}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 fw-normal">Please Login</h1>
+    <p>Don't have an account ? <a href="{% url 'home:signup' %}">Register</a></p>
 
-<div class="">
-    <h3 class="text-center"> Login page </h3>
-
-    <div class="container py-5">
-      <form method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-            {{ field.label_tag }}{{ field }}
-                {% if form.errors %}
-                    {% for error in field.errors %}
-                        <p> {{ error }}</p>
-                    {% endfor %}
-                {% endif %}
+{% for field in form %}
+    {% if form.errors %}
+        {% for error in field.errors %}
+            <strong style="color: red">{{ error }}strong>
         {% endfor %}
-        <button class="btn btn-primary" type="submit">Login</button>
-      </form>
-      <a href="{% url 'home:signup' %}"><p class="text-center"> Go to the register page </p></a>
+    {% endif %}
+    <div class="form-floating">
+        {{ field }}
+        {{ field.label_tag }}
     </div>
-</div>
-
+{% endfor %}
+<button class="w-100 btn btn-lg btn-white-blue mt-3" type="submit">Login</button>
+  </form>
+  </main>
 {% endblock %}

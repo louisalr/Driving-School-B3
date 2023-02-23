@@ -7,7 +7,7 @@ class School(models.Model):
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=10)
     description = models.TextField(max_length=255, null=True, blank=True)
-
+    picture_url = models.URLField(null=True, blank=True)
 
 class Customer(AbstractUser):
     isManager = models.BooleanField(default=False)

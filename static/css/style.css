@@ -10,6 +10,7 @@ html {
 .btn-white-green{
     background-color: #5AE4A7;
     border-color: #5AE4A7;
+    color: white;
 }
 
 /* Color code : #D5F8E5 */
@@ -18,4 +19,48 @@ html {
     display: inline-block;
     line-height: 0em;
     padding-bottom: 0.5em;
+}
+
+.text-white-white-green{
+    color: #D5F8E5;
+}
+
+.btn-white-red{
+    background-color: #e45869;
+    border-color: #e45869;
+    color: white;
+}
+
+.btn-white-blue{
+    background-color: #5897E4;
+    border-color: #5897E4;
+    color: white;
+}
+
+.text-white-blue{
+    color: #5897E4;
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 300%;
+    line-height: 1.33;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .btn-circle.btn-xl {
+      font-size: 200%;
+    }
+  }
+
+.img-school {
+    -webkit-filter: grayscale(100%); /* Pour les navigateurs Chrome, Safari, Opera */
+    filter: grayscale(100%); /* Firefox */
+    object-fit: cover;
 }
