@@ -3,29 +3,26 @@
 {% block content %}
 
 <div class="">
+
+    <div class="container">
     <h3 class="text-center"> Register </h3>
 
     <form method="post">
 
         {% csrf_token %}
-
-        {% if form.errors %}
             {% for field in form %}
                 {{ field.label_tag }}{{ field }}
-                    {% for error in field.errors %}
-                        <p> {{ error }}</p>
-                    {% endfor %}
+                    {% if form.errors %}
+                        {% for error in field.errors %}
+                            <p> {{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
             {% endfor %}
-        {% endif %}
-
         <br>
 
         <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-
-
-
+    </form>
+    </div>
 </div>
 
 {% endblock %}
