@@ -1,0 +1,38 @@
+[
+  {
+    "name": "School 1",
+    "address": "",
+    "phone" : "",
+    "email": "school1@gmail.com"
+  },
+  {
+    "name": "School 2",
+    "address": "",
+    "phone" : "",
+    "email": "school2@gmail.com"
+  },
+  {
+    "name": "School 3",
+    "address": "",
+    "phone" : "",
+    "email": "school3@gmail.com"
+  },
+  {
+    "name": "School 4",
+    "address": "",
+    "phone" : "",
+    "email": "school4@gmail.com"
+  },
+  {
+    "name": "School 5",
+    "address": "",
+    "phone" : "",
+    "email": "school5@gmail.com"
+  },
+  {
+    "name": "School 6",
+    "address": "",
+    "phone" : "",
+    "email": "school6@gmail.com"
+  }
+]
