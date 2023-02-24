@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="infos">
+
+            <h3 class="text-center"> Details </h3>
+
+            <p> {{ school.name }} </p>
+
+            <p> {{ school.addresse }} </p>
+
+            <p> {{ school.phone }} </p>
+
+            <p> {{ school.description }} </p>
+
+        </div>
+
+        <hr>
+
+        <div class="reservations">
+            <h3> Slots available </h3>
+
+            <!-- For loop with the available slots -->
+
+        </div>
+
+
+    </div>
+
+{% endblock %}
