@@ -3,9 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic import TemplateView
+from django.views.generic.list import BaseListView, ListView
 
 from home.forms import RegistrationForm, LoginForm
-from home.models import School, Customer
+from home.models import School, Customer, Booking
 
 
 class IndexView(generic.ListView):
@@ -65,4 +67,30 @@ class SchoolIndexView(generic.ListView):
 
 
 def indexAccountView(request):
-    return render(request, template_name="account/profile.html")
+    # Get all the infos related to the current user logged in
+    user_infos = Customer.objects.get(id=request.user.id)
+    user_reservations = ""
+
+    # If user is not a school
+    if user_infos.isManager:
+        # Returns the only/multiple driving schools user owns
+        print('School manager')
+
+    # Else user is a school
+    else:
+        print('User is linked to at least one school')
+        # Get all the schools user is associated
+        # TO-DO
+        # get_schools = School.objects.get()
+        # user_reservations = Booking.objects.get(customer=user_infos)
+
+    return render(request, template_name="account/profile.html", context={"user": user_infos, "reservations":
+        user_reservations})
+
+
+class SchoolDetailsView(ListView):
+    template_name = 'school/school_details.html'
+    context_object_name = 'school'
+
+    def get_queryset(self):
+        return School.objects.get(id=self.kwargs['id'])
