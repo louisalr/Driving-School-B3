@@ -1,13 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import TemplateView
-from django.views.generic.list import BaseListView, ListView
 
-from home.forms import RegistrationForm, LoginForm
-from home.models import School, Customer, Booking
+from home.forms import RegistrationForm, LoginForm, SchoolForm, EventForm
+from home.models import School, Customer, Event
 
 
 class IndexView(generic.ListView):
@@ -52,6 +52,7 @@ def logout_view(request):
     return redirect('home:index')
 
 
+# Modify to take in account the checkbox
 class SignUpView(generic.CreateView):
     form_class = RegistrationForm
     success_url = reverse_lazy("login")
@@ -66,16 +67,37 @@ class SchoolIndexView(generic.ListView):
         return School.objects.all()
 
 
+class CreateSchoolView(generic.CreateView):
+    form_class = SchoolForm
+    success_url = reverse_lazy("home:account")
+    template_name = "school/school_create.html"
+
+    def form_valid(self, form):
+        # Get the current user to add the corresponding user to the new created school
+        form.instance.creator = self.request.user.id
+
+        # Save the form data to the database
+        self.object = form.save()
+
+        # Save the user corresponding to this schools
+        user_school = Customer.objects.get(id=form.instance.creator).school.add(self.object)
+
+        return super().form_valid(form)
+
+
 def indexAccountView(request):
     # Get all the infos related to the current user logged in
     user_infos = Customer.objects.get(id=request.user.id)
+    user_informations = ""
     user_reservations = ""
 
     # If user is not a school
     if user_infos.isManager:
         # Returns the only/multiple driving schools user owns
         print('School manager')
-
+        customer = Customer.objects.get(id=request.user.id)
+        user_informations = customer.school.all()
+        print(user_infos.school)
     # Else user is a school
     else:
         print('User is linked to at least one school')
@@ -84,13 +106,77 @@ def indexAccountView(request):
         # get_schools = School.objects.get()
         # user_reservations = Booking.objects.get(customer=user_infos)
 
-    return render(request, template_name="account/profile.html", context={"user": user_infos, "reservations":
+    return render(request, template_name="account/profile.html", context={"schools": user_informations, "reservations":
         user_reservations})
 
 
-class SchoolDetailsView(ListView):
+class SchoolDetailsView(TemplateView):
     template_name = 'school/school_details.html'
-    context_object_name = 'school'
 
-    def get_queryset(self):
-        return School.objects.get(id=self.kwargs['id'])
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['school'] = School.objects.get(id=self.kwargs['id'])
+        context['events'] = Event.objects.all()
+        return context
+
+
+def account_address_delete(request, pk):
+    # Returns an error if the schools has some reservations with at least one person in it
+
+    # Get the school for the reference
+    school = School.objects.get(pk=pk)
+
+    # Delete the user linked to the school
+    get_customer = Customer.objects.get(id=request.user.id)
+    get_customer.school.remove(school)
+    get_customer.save()
+
+    # Then delete the school
+    school.delete()
+    school.save()
+
+    return HttpResponseRedirect('/account/')
+
+
+def DeleteEvent(request, pk):
+    Event.objects.get(pk=pk).delete()
+    return HttpResponseRedirect('/account/')
+
+
+class ManageEventView(generic.CreateView, generic.UpdateView):
+    # Edit the form by getting all its informations
+    form_class = EventForm
+    success_url = reverse_lazy("home:account")
+    template_name = "school/school_add_event.html"
+
+    def get_object(self, queryset=None):
+        # This method is called to get the object to edit in the UpdateView
+        # We override it to check if the object exists and return it
+        # or return None if it doesn't exist
+        pk2 = self.kwargs.get('pk2')
+        print(pk2)
+        if pk2 is not None:
+            return Event.objects.get(pk=pk2)
+        return None
+
+    def form_valid(self, form):
+        form.instance.school = self.kwargs['pk']
+
+        # Retrieve the school and
+        # Save the form data to the database
+        form.instance.creator = School.objects.get(id=form.instance.school)
+        self.object = form.save()
+
+        return super().form_valid(form)
+
+
+class SchoolSlotsDetails(TemplateView):
+
+    template_name = 'home/school_slots.html'
+
+    def get_context_data(self, **kwargs):
+        # Returns only the details for the selected school
+        context = super().get_context_data(**kwargs)
+        context['school'] = School.objects.get(id=self.kwargs['pk'])
+        context['events'] = Event.objects.all()
+        return context

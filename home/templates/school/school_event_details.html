@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="container">
+    <h3 class="text-center"> Edit this event </h3>
+    <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        {% if form.errors %}
+            {% for error in field.errors %}
+                <strong style="color: red">{{ error }}<strong>
+            {% endfor %}
+        {% endif %}
+        <div class="form-floating">
+            {{ field }}
+            {{ field.label_tag }}
+        </div>
+    {% endfor %}
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Create the new school</button>
+    </form>
+    </div>
+
+{% endblock %}
