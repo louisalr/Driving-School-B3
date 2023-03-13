@@ -3,14 +3,37 @@
 {% block content %}
 
     <div class="container">
-       <h3 class="text-center"> Profil </h3>
+       <h3 class="text-center"> Welcome {{ user.username }} </h3>
 
         <p> Mes réservations </p>
 
-        {% if reservations %}
-        {% else %}
-            <p> You don't have any reservations yet. </p>
-            <a href="#"> Look for a new reservation </a>
+        {% if user.isManager %}
+            <p> I'm a school. </p>
+
+            {% for school in schools %}
+                <div class="col-12 col-md-4">
+
+                    <div class="card mt-4 shadow-sm">
+                        <a href="{% url 'home:school-details' school.id %}">
+                            <img src="{{ school.picture_url }}" alt="{{ school.name }}" class="card-img-top img-school" height="180">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ school.name }}</h5>
+
+                            <p class="card-text">{{ school.description }}</p>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="{% url 'home:add-event' school.id %}" class="btn btn-info"> Add an event  </a>
+                    <a href="{% url 'home:school-delete' school.id %}" class="btn btn-danger"> Delete the school </a>
+                </div>
+            {% endfor %}
+
+            <a href="{% url 'home:school-create' %}" class="btn btn-success btn-sm"> Create a new school</a>
+        {% endif %}
+
+        {% if user.isManager == False %}
+            <!-- Create another if if user has reservations -->
         {% endif %}
     </div>
 

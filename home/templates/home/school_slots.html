@@ -1,24 +1,13 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block content %}
 
-    <div class="container">
-
+ <div class="container">
         <div class="infos">
-
             <h3 class="text-center"> Details </h3>
-
             <p> School name : {{ school.name }} </p>
-
-            <p> Address school : {{ school.addresse }} </p>
-
-            <p> Phone school : {{ school.phone }} </p>
-
-            <p> Phone : {{ school.description }} </p>
-
         </div>
-
-        <hr>
 
         <div class="events">
 
@@ -33,15 +22,16 @@
                         <a href="{% url 'home:delete-event' event.id%}" class="btn btn-danger"> Delete this event</a>
                     </div>
                 {% endfor %}
-                 <a href="{% url 'home:add-event' school.pk %}" class="btn btn-info"> Create a new event </a>
             {% else %}
                 <p> You don't have events planned</p>
                 <a href="{% url 'home:add-event' school.pk %}"> Create a new event </a>
             {% endif %}
 
         </div>
-
-
-    </div>
+ </div>
 
 {% endblock %}
+
+
+
+
