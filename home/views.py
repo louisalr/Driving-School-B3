@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -21,6 +22,15 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = School
     template_name = 'home/detail.html'
+
+
+# Display only the schools with available slots
+class SchoolsWithReservationsOnly(generic.ListView):
+    template_name = 'home/schools_available.slots.html'
+    context_object_name = 'schools'
+
+    def get_queryset(self):
+        return School.objects.filter(event__isnull=False).distinct()
 
 
 def login_request(request):
@@ -100,11 +110,10 @@ def indexAccountView(request):
         print(user_infos.school)
     # Else user is a school
     else:
-        print('User is linked to at least one school')
         # Get all the schools user is associated
         # TO-DO
-        # get_schools = School.objects.get()
-        # user_reservations = Booking.objects.get(customer=user_infos)
+        user_reservations = Event.objects.filter(attendees=request.user)
+        print(user_reservations)
 
     return render(request, template_name="account/profile.html", context={"schools": user_informations, "reservations":
         user_reservations})
@@ -171,12 +180,40 @@ class ManageEventView(generic.CreateView, generic.UpdateView):
 
 
 class SchoolSlotsDetails(TemplateView):
-
     template_name = 'home/school_slots.html'
 
     def get_context_data(self, **kwargs):
         # Returns only the details for the selected school
         context = super().get_context_data(**kwargs)
-        context['school'] = School.objects.get(id=self.kwargs['pk'])
-        context['events'] = Event.objects.all()
+        school = School.objects.get(id=self.kwargs['pk'])
+        context['school'] = school
+        context['events'] = Event.objects.filter(creator=school)
+        return context
+
+
+@login_required
+def RegisterUserEvent(request, id):
+    # Get the event and add the new user
+    event = Event.objects.get(creator_id=id)
+    event.attendees.add(request.user)
+
+    # If user already participate in the event, return an error
+    return redirect('/')
+
+
+def DeleteUserEvent(request, id):
+    # Remove the user from an event
+
+    event = Event.objects.get(id=id)
+    event.attendees.remove(request.user)
+    return redirect('/account/')
+
+
+class UserEventDetails(TemplateView):
+    template_name = 'account/user_event_details.html'
+
+    def get_context_data(self, **kwargs):
+        # Returns only the details for the selected school
+        context = super().get_context_data(**kwargs)
+        context['event'] = Event.objects.get(id=self.kwargs['pk'])
         return context

@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from home.views import login_request, logout_view, indexAccountView, account_address_delete, DeleteEvent, \
-    SchoolSlotsDetails
+    SchoolSlotsDetails, RegisterUserEvent, DeleteUserEvent
 
 app_name = 'home'
 urlpatterns = [
@@ -12,12 +12,14 @@ urlpatterns = [
     path('logout/', logout_view, name="logout"),
     path('sign-up/', views.SignUpView.as_view(), name='signup'),
     path('account/', indexAccountView, name='account'),
+    path('account/reservation/<int:pk>/', views.UserEventDetails.as_view(), name="reservation-detail"),
 
     # Manage schools
     path('schools/', views.SchoolIndexView.as_view(), name="schools"),
     path('school/create', views.CreateSchoolView.as_view(), name="school-create"),
     path('school/<str:id>/', views.SchoolDetailsView.as_view(), name="school-details"),
     path('schools/<int:pk>/delete/', account_address_delete, name='school-delete'),
+    path('schools/slots-available/', views.SchoolsWithReservationsOnly.as_view(), name="schools-with-slots"),
 
     # Manage events
     path('school/<int:pk>/add-event/', views.ManageEventView.as_view(), name="add-event"),
@@ -26,6 +28,7 @@ urlpatterns = [
 
     # Manage users actions
     path('check-school-slots/<int:pk>', views.SchoolSlotsDetails.as_view(), name="school-slots"),
-
+    path('pick-slot/<int:id>', RegisterUserEvent, name="pick-slot"),
+    path('cancel-slot/<int:id>', DeleteUserEvent, name="cancel-slot"),
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
 ]

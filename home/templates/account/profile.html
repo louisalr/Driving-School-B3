@@ -5,14 +5,11 @@
     <div class="container">
        <h3 class="text-center"> Welcome {{ user.username }} </h3>
 
-        <p> Mes réservations </p>
-
         {% if user.isManager %}
             <p> I'm a school. </p>
 
+            <div class="col-12 col-md-4">
             {% for school in schools %}
-                <div class="col-12 col-md-4">
-
                     <div class="card mt-4 shadow-sm">
                         <a href="{% url 'home:school-details' school.id %}">
                             <img src="{{ school.picture_url }}" alt="{{ school.name }}" class="card-img-top img-school" height="180">
@@ -26,14 +23,26 @@
                     </div>
                     <a href="{% url 'home:add-event' school.id %}" class="btn btn-info"> Add an event  </a>
                     <a href="{% url 'home:school-delete' school.id %}" class="btn btn-danger"> Delete the school </a>
-                </div>
             {% endfor %}
-
+            </div>
             <a href="{% url 'home:school-create' %}" class="btn btn-success btn-sm"> Create a new school</a>
         {% endif %}
 
         {% if user.isManager == False %}
             <!-- Create another if if user has reservations -->
+
+            {% if reservations %}
+                <p> My reservations </p>
+                {% for reservation in reservations %}
+                    <div>
+                        <p> <a href="{% url 'home:reservation-detail' reservation.id %}">{{ reservation.name}} </p>
+                        <a href="{% url 'home:cancel-slot' reservation.id %}" class="btn btn-danger"> Cancel participation </a>
+                    </div>
+                {% endfor %}
+            {% else  %}
+                <p> You currently doesn't any reservations. </p>
+                <a href="{% url 'home:schools-with-slots' %}" class="btn btn-info"> Look for available reservations </a>
+            {% endif %}
         {% endif %}
     </div>
 
