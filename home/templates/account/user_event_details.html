@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="">
+
+    <div class="container">
+        <h3 class="text-center"> Event name : {{ event.name }}</h3>
+        <p> Day : {{ event.date }}</p>
+        <p> Start hour : {{ event.start_hour }}</p>
+        <p> End hour : {{ event.end_hour }}</p>
+        <a href="{% url 'home:cancel-slot' event.id %}" class="btn btn-danger"> Cancel participation </a>
+    </div>
+</div>
+
+{% endblock %}
