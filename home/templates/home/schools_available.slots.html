@@ -5,7 +5,13 @@
 <div class="">
 
     <div class="container">
-        <h3 class="text-center"> Schools with available slots </h3>
+        <div class="text-center py-4">
+            <h2 class="fs-2 fw-bold text-dark">School with
+              <span class="text-white-blue">Available Slots</span>
+            </h2>
+            <h6 class="lh-base w-75 mx-auto">Here you can register for events created by driving schools</h6>
+            <div style="width: 60px;" class="mx-auto border border-secondary"></div>
+        </div>
         {% for school in schools %}
             <div class="col-12 col-md-4">
                             <div class="card mt-4 shadow-sm">
@@ -19,7 +25,7 @@
                                 </div>
                             </div>
             </div>
-            <a href="{% url 'home:school-slots' school.id%}" class="btn btn-white-green"> Check available slots</a>
+            <a href="{% url 'home:school-slots' school.id%}" class="btn btn-white-green">Check available slots</a>
         {% endfor %}
     </div>
 </div>

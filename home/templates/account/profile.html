@@ -3,14 +3,22 @@
 {% block content %}
 
     <div class="container">
-       <h3 class="text-center"> Welcome {{ user.username }} </h3>
-
+        <div class="my-2" align="center">
+            <h2 class="fs-2 fw-bold text-dark">Welcome
+                <span class="text-white-blue">{{ user.username }}</span>
+              </h2>
+              <h6 class="lh-base w-75 mx-auto">Here are the driving schools that you have listed on our site</h6>
+              <div style="width: 60px;" class="mx-auto border border-secondary"></div>
+        </div>
         {% if user.isManager %}
-            <p> I'm a school. </p>
-
-            <div class="col-12 col-md-4">
+        <div align="center">
+            <a href="{% url 'home:school-create' %}" class="btn btn-white-blue btn-circle btn-l"><i class="bi bi-plus"></i></a>
+        </div>
+        <div class="container overflow-hidden pb-3 pt-4">
+            <div class="row gy-4">
             {% for school in schools %}
-                    <div class="card mt-4 shadow-sm">
+                <div class="col-12 col-md-4">
+                    <div class="card shadow-sm">
                         <a href="{% url 'home:school-details' school.id %}">
                             <img src="{{ school.picture_url }}" alt="{{ school.name }}" class="card-img-top img-school" height="180">
                         </a>
@@ -19,13 +27,16 @@
 
                             <p class="card-text">{{ school.description }}</p>
                         </div>
+                        <div class="my-3" align="center">
+                            <a href="{% url 'home:add-event' school.id %}" class="btn btn-success"> Add an event  </a>
+                            <a href="{% url 'home:school-delete' school.id %}" class="btn btn-danger"> Delete the school </a>
+                        </div>
                         </a>
                     </div>
-                    <a href="{% url 'home:add-event' school.id %}" class="btn btn-info"> Add an event  </a>
-                    <a href="{% url 'home:school-delete' school.id %}" class="btn btn-danger"> Delete the school </a>
+                </div>
             {% endfor %}
-            </div>
-            <a href="{% url 'home:school-create' %}" class="btn btn-success btn-sm"> Create a new school</a>
+        </div>
+    </div>
         {% endif %}
 
         {% if user.isManager == False %}
@@ -40,8 +51,10 @@
                     </div>
                 {% endfor %}
             {% else  %}
+            <div align="center" class="my-5">
                 <p> You currently doesn't any reservations. </p>
-                <a href="{% url 'home:schools-with-slots' %}" class="btn btn-info"> Look for available reservations </a>
+                <a href="{% url 'home:schools-with-slots' %}" class="btn btn-white-blue"> Look for available reservations </a>
+            </div>
             {% endif %}
         {% endif %}
     </div>
