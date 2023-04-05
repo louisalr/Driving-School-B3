@@ -10,6 +10,9 @@ class School(models.Model):
     description = models.TextField(max_length=255, null=True, blank=True)
     picture_url = models.URLField(null=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Customer(AbstractUser):
     isManager = models.BooleanField(default=False)
@@ -23,6 +26,9 @@ class Customer(AbstractUser):
         else:
             self.username = f"{self.first_name}{self.last_name}"
             super(Customer, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 class Event(models.Model):
@@ -40,3 +46,6 @@ class Event(models.Model):
             return True
         else:
             return False
+
+    def __str__(self):
+        return f"{self.name} : {self.date}"

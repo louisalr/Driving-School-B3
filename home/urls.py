@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from home.views import login_request, logout_view, indexAccountView, account_address_delete, DeleteEvent, \
-    SchoolSlotsDetails, RegisterUserEvent, DeleteUserEvent
+    RegisterUserEvent, DeleteUserEvent
 
 app_name = 'home'
 urlpatterns = [
@@ -27,7 +27,6 @@ urlpatterns = [
     path('school/event/<int:pk>/delete', DeleteEvent, name="delete-event"),
 
     # Manage users actions
-    path('check-school-slots/<int:pk>', views.SchoolSlotsDetails.as_view(), name="school-slots"),
     path('pick-slot/<int:id>', RegisterUserEvent, name="pick-slot"),
     path('cancel-slot/<int:id>', DeleteUserEvent, name="cancel-slot"),
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),

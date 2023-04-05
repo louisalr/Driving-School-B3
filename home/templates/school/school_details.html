@@ -11,29 +11,44 @@
     </div>
     <div class="container">
         <div class="infos">
-            <p> School name : {{ school.name }} </p>
-            <p> Address school : {{ school.addresse }} </p>
-            <p> Phone school : {{ school.phone }} </p>
-            <p> Description : {{ school.description }} </p>
+            <p><strong>School name</strong> : {{ school.name }} </p>
+            <p><strong>Address school</strong> : {{ school.address }} </p>
+            <p><strong>Phone school</strong> : {{ school.phone }} </p>
+            <p><strong>Description</strong> : {{ school.description }} </p>
         </div>
         <hr>
         <div class="events">
             {% if events %}
                 {% for event in events %}
-                    <div class="card">
+                    <div class="col-6 card">
                         <div class="card-body">
-                            <h3 class="card-title"> {{ event.name }}</h3>
-                            <p class="card-text"></p>
+                            <h3 class="card-title">{{ event.name }}</h3>
+                            <p class="card-text"><u>{{ event.start_hour }}</u> to <u>{{ event.end_hour }}</u></p>
+                            <p class="card-text">Remaining places : {{ event.max_attendees }}</p>
                         </div>
-                        <a href="{% url 'home:edit-event' school.id event.id%}" class="btn btn-info"> Edit this event</a>
-                        <a href="{% url 'home:delete-event' event.id%}" class="btn btn-danger"> Delete this event</a>
+                        {% if user.is_manager %}
+                        <div align="center" class="my-2">
+                            <a href="{% url 'home:edit-event' school.id event.id%}" class="btn btn-sm btn-success"> Edit this event</a>
+                            <a href="{% url 'home:delete-event' event.id%}" class="btn btn-sm btn-danger"> Delete this event</a>
+                        </div>
+                        {% else %}
+                        <div align="center" class="mb-3" >
+                            <a href="{% url 'home:pick-slot' school.id %}" class="btn btn-success">
+                                Register for this event
+                            </a>                        
+                        </div>
+                        {% endif %}
                     </div>
                 {% endfor %}
-                 <a href="{% url 'home:add-event' school.pk %}" class="btn btn-info"> Create a new event </a>
             {% else %}
                 <p> You don't have events planned</p>
-                <a href="{% url 'home:add-event' school.pk %}"> Create a new event </a>
             {% endif %}
+            {% if user.is_manager %}
+                <div align="center" class="my-2" >
+                    <a href="{% url 'home:add-event' school.pk %}" class="btn btn-white-blue"> Create a new event </a>
+                </div>
+            {% endif %}
+
         </div>
     </div>
   </main>
