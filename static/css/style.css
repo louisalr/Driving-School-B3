@@ -25,12 +25,20 @@ html {
     color: #D5F8E5;
 }
 
+.btn-white-white-green {
+    background-color: #D5F8E5;
+    border-color: #D5F8E5;
+    color: white;
+}
+
+/* Color code : #e45869 */
 .btn-white-red{
     background-color: #e45869;
     border-color: #e45869;
     color: white;
 }
 
+/* Color code : #5897E4 */
 .btn-white-blue{
     background-color: #5897E4;
     border-color: #5897E4;
@@ -41,9 +49,54 @@ html {
     color: #5897E4;
 }
 
+.mark-white-blue {
+    background-color: #5897E4;
+    display: inline-block;
+    line-height: 0em;
+    padding-bottom: 0.5em;
+}
+
+.btn-round {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 5px;
+  }
+
+.btn-circle.btn-m {
+    width: 30px;
+    height: 30px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 200%;
+    line-height: 1.33;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.btn-circle.btn-l {
+    width: 40px;
+    height: 40px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 200%;
+    line-height: 1.33;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .btn-circle.btn-xl {
-    width: 70px;
-    height: 70px;
+    width: 55px;
+    height: 55px;
     padding: 10px 16px;
     border-radius: 35px;
     font-size: 300%;
@@ -64,3 +117,13 @@ html {
     filter: grayscale(100%); /* Firefox */
     object-fit: cover;
 }
+
+.school-link {
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #5897E4;
+  }

@@ -20,9 +20,6 @@
   </div>
 </div>
 
-
-
-
 {% if schools %}
 <section id="cible-findaschool">
 <div class="bg-light">
@@ -37,6 +34,9 @@
     <div class="row gy-4">
         {% for school in schools %}
         <div class="col-12 col-md-4">
+           <div class="d-flex justify-content-center align-items-center">
+            <a href="{% url 'home:school-slots' school.id %}" class="btn btn-white-white-green btn-circle btn-m"><i class="bi bi-arrow-down"></i></a>
+          </div>
             <div class="p-3 border bg-white rounded shadow-sm" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseWidthExample{{ school.id }}" aria-expanded="false"
                 aria-controls="collapseWidthExample{{ school.id }}">
@@ -52,13 +52,12 @@
                     </div>
                 </div>
             </div>
-            <a href="{% url 'home:school-slots' school.id %}" class="btn btn-white-green btn-sm"> Check available slots</a>
         </div>
         {% endfor %}
 
     </div>
     <div class="d-flex justify-content-center align-items-center mt-2">
-      <a href="{% url 'home:schools' %}" alt="See all driving schools" type="button" class="btn btn-white-green btn-circle btn-xl"><i class="bi bi-plus  "></i></a>
+      <a href="{% url 'home:schools' %}" alt="See all driving schools" type="button" class="btn btn-white-green btn-circle btn-xl my-3"><i class="bi bi-plus  "></i></a>
     </div>
 </div>
 </div>

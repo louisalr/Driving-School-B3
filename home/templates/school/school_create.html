@@ -3,21 +3,33 @@
 {% block content %}
 
     <div class="container">
-    <h3 class="text-center"> New school form </h3>
+        <div class="text-center py-4">
+            <h2 class="fs-2 fw-bold text-dark">Create your Driving
+              <span class="text-white-blue">School</span>
+            </h2>
+            <h6 class="lh-base w-75 mx-auto">Here you can create one of your driving schools</h6>
+            <div style="width: 60px;" class="mx-auto border border-secondary"></div>
+        </div>
     <form method="post">
     {% csrf_token %}
     {% for field in form %}
         {% if form.errors %}
             {% for error in field.errors %}
-                <strong style="color: red">{{ error }}<strong>
+                <a style="color: red">{{ error }}<a>
             {% endfor %}
         {% endif %}
-        <div class="form-floating">
-            {{ field }}
-            {{ field.label_tag }}
+        <div align="center">
+            <div class="col-6 form-floating">
+                {{ field }}
+                {{ field.label_tag }}
+            </div>
         </div>
     {% endfor %}
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Create the new school</button>
+    <div align="center">
+        <div class="col-6">
+            <button class="w-100 btn btn-lg btn-white-blue" type="submit">Create the new school</button>
+        </div>
+    </div>
     </form>
     </div>
 

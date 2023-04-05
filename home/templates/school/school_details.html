@@ -1,27 +1,23 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block content %}
-
+<main class="container my-4">
+    <div class="p-4 p-md-5 mb-4 text-white rounded img-school" style="background-image: url('{{school.picture_url}}'); ">
+      <div class="col-md-6 px-0">
+        <h1 class="display-7 fst-italic">{{ school.name }}</h1>
+        <p class="lead mb-0"><a href="http://maps.google.com/?q={{school.address}}" class="text-white fw-bold">{{ school.address }}</a></p>
+      </div>
+    </div>
     <div class="container">
-
         <div class="infos">
-
-            <h3 class="text-center"> Details </h3>
-
             <p> School name : {{ school.name }} </p>
-
             <p> Address school : {{ school.addresse }} </p>
-
             <p> Phone school : {{ school.phone }} </p>
-
-            <p> Phone : {{ school.description }} </p>
-
+            <p> Description : {{ school.description }} </p>
         </div>
-
         <hr>
-
         <div class="events">
-
             {% if events %}
                 {% for event in events %}
                     <div class="card">
@@ -38,10 +34,7 @@
                 <p> You don't have events planned</p>
                 <a href="{% url 'home:add-event' school.pk %}"> Create a new event </a>
             {% endif %}
-
         </div>
-
-
     </div>
-
+  </main>
 {% endblock %}

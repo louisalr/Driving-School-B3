@@ -14,7 +14,7 @@
             {% for field in form %}
                 {% if form.errors %}
                     {% for error in field.errors %}
-                        <strong style="color: red">{{ error }}<strong>
+                        <a style="color: red">{{ error }}<a>
                     {% endfor %}
                 {% endif %}
             <div class="form-floating">
