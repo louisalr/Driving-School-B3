@@ -1,7 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from django.forms import ModelForm
-
 from home.models import Customer, School, Event
 
 
