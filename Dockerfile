@@ -1,17 +1,15 @@
 # Utilisation de l'image de Selenium avec ChromeDriver
 FROM selenium/standalone-chrome:latest
 
-# Copier le fichier requirements.txt dans l'image
-COPY requirements.txt /app/requirements.txt
-
-# Installer des dépendances Python à partir de requirements.txt
-RUN pip install -r /app/requirements.txt
-
-# Copier les fichiers de votre application dans l'image
-COPY . /app
-
-# Définir le répertoire de travail
 WORKDIR /app
+
+# Copie le fichier requirements.txt et installe les dépendances
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copie le reste du code de l'application dans le conteneur
+COPY . .
+
 
 # Commande par défaut à exécuter lorsqu'un conteneur basé sur cette image est démarré
 # Remplacer par la commande spécifique pour exécuter les tests Selenium

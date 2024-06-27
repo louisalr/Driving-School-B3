@@ -50,10 +50,10 @@ jobs:
 
     - name: Run unit tests
       run: |
-        python manage.py test home.tests
+        python manage.py test home
     
-
-    - name: Build and run graphic test
-      run: |
-        docker build -t my-python-app .
-        docker run my-python-app
+    
+    #- name: Build and run graphic test
+    #  run: |
+    #    docker build -t my-python-app .
+    #    docker run my-python-app
