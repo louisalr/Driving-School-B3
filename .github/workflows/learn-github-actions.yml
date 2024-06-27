@@ -12,25 +12,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:12
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: test_db
-        options: >-
-          --health-cmd "pg_isready -U postgres"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-
-    env:
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
-      DEBUG: 0
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -51,9 +32,3 @@ jobs:
     - name: Run unit tests
       run: |
         python manage.py test home
-    
-    
-    #- name: Build and run graphic test
-    #  run: |
-    #    docker build -t my-python-app .
-    #    docker run my-python-app
