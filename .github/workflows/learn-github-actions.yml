@@ -48,6 +48,12 @@ jobs:
       run: |
         python manage.py migrate
 
-    - name: Run tests
+    - name: Run unit tests
       run: |
-        python manage.py test home
+        python manage.py test home.tests
+    
+
+    - name: Build and run graphic test
+      run: |
+        docker build -t my-python-app .
+        docker run my-python-app
