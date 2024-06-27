@@ -9,8 +9,10 @@ on:
       - main
 
 jobs:
-  unit-test:
+  setup:
     runs-on: ubuntu-latest
+    outputs:
+      cache-key: ${{ steps.cache-key.outputs.cache-hit }}
 
     steps:
     - name: Checkout code
@@ -22,6 +24,7 @@ jobs:
         python-version: '3.11'
 
     - name: Install dependencies
+      id: cache-key
       run: |
         pip install -r requirements.txt
 
@@ -29,12 +32,9 @@ jobs:
       run: |
         python manage.py migrate
 
-    - name: Run unit tests
-      run: |
-        python manage.py test home.tests
-
-  graphic-tests:
+  unit-test:
     runs-on: ubuntu-latest
+    needs: setup
 
     steps:
     - name: Checkout code
@@ -49,7 +49,48 @@ jobs:
       run: |
         pip install -r requirements.txt
 
-
     - name: Run unit tests
+      run: |
+        python manage.py test home.tests
+
+  graphic-tests:
+    runs-on: ubuntu-latest
+    needs: setup
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run graphic tests
+      run: |
+        python manage.py test home.tests_selenium
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs: setup
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run integration tests
       run: |
         python manage.py test home.tests_selenium
