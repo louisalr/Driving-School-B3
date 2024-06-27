@@ -4,6 +4,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 
@@ -12,8 +13,14 @@ class UserLoginSeleniumTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        # Utilise ChromeDriver pour contrôler le navigateur
-        cls.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # Configurer les options de Chrome pour le mode headless
+        chrome_options = Options()
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+
+        # Utiliser ChromeDriver pour contrôler le navigateur
+        cls.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
         cls.driver.implicitly_wait(10)  # Temps d'attente pour trouver les éléments
 
     @classmethod
@@ -42,5 +49,5 @@ class UserLoginSeleniumTests(StaticLiveServerTestCase):
         password_input.send_keys(Keys.RETURN)  # Appuyer sur Entrée pour soumettre le formulaire
 
         # Vérifier la présence de "Account" dans la navbar après la connexion
-        #navbar_account_link = self.driver.find_element(By.LINK_TEXT, 'Account')
-        #self.assertIsNotNone(navbar_account_link)
+        # navbar_account_link = self.driver.find_element(By.LINK_TEXT, 'Account')
+        # self.assertIsNotNone(navbar_account_link)
