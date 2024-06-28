@@ -34,7 +34,7 @@ class UserLoginSeleniumTests(StaticLiveServerTestCase):
             email='usertest@example.com'
         )
 
-    def test_login_screen(self):
+    def test_login_screen_display(self):
         self.driver.get(f'{self.live_server_url}/login/')
 
         # Vérification des éléments dans le header
