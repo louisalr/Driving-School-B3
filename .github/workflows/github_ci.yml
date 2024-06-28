@@ -54,7 +54,7 @@ jobs:
         run: |
           python manage.py test home.tests
 
-   unit-form-test:
+  unit-form-test:
     runs-on: ubuntu-latest
     needs: setup
 
