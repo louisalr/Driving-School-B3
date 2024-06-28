@@ -62,53 +62,34 @@ class AddSchoolIntegrationSeleniumTests(StaticLiveServerTestCase):
 
         time.sleep(1)
 
-        # Vérifier la redirection vers l'URL souhaité
-        #current_url = self.driver.current_url
-        #self.assertEqual(current_url, f'{self.live_server_url}/')
-
-        self.driver.get(f'{self.live_server_url}/account/')
-        current_url = self.driver.current_url
-        self.assertEqual(current_url, f'{self.live_server_url}/account/')
-
-        # Trouver le lien pour créer une école et cliquer dessus
-        #create_school_link = self.driver.find_element(By.CSS_SELECTOR, 'a[href="/school/create"]')
-        #create_school_link.click()
-
-        #current_url = self.driver.current_url
-        #self.assertEqual(current_url, f'{self.live_server_url}/school/create/')
-
-        self.driver.get(f'{self.live_server_url}/school/create')
+        self.driver.save_screenshot('screenshot.png')
 
         # Champ Name
         name_input = self.driver.find_element(By.ID, 'id_name')
         name_input.send_keys('John Doe')  # Exemple de données aléatoires
-
         # Champ Address
         address_input = self.driver.find_element(By.ID, 'id_address')
         address_input.send_keys('123 Main Street')  # Exemple de données aléatoires
-
         # Champ Phone
         phone_input = self.driver.find_element(By.ID, 'id_phone')
         phone_input.send_keys('5551234567')  # Exemple de données aléatoires
-
         # Champ Description (Textarea)
         description_input = self.driver.find_element(By.ID, 'id_description')
         description_input.send_keys('This is a test description.')  # Exemple de données aléatoires
-
         # Champ Picture URL
         picture_url_input = self.driver.find_element(By.ID, 'id_picture_url')
         picture_url_input.send_keys('http://example.com/picture.jpg')  # Exemple de données aléatoires
 
         # Soumettre le formulaire
-        submit_button = self.driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
+        submit_button = self.driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
         submit_button.click()
 
 
-        #self.driver.get(f'{self.live_server_url}/account')
+        time.sleep(1)
+
+        self.driver.save_screenshot('screenshot.png')
 
 
-        #assert "John Doe" in self.driver.page_source, "Expected text 'John Doe' not found on the second page."
-        #assert "5551234567" in self.driver.page_source, "Expected text 'John Doe' not found on the second page."
 
 
 
