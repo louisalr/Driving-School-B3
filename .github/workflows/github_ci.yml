@@ -2,11 +2,11 @@ name: Django CI
 
 on:
   push:
-    branches-ignore:
-      - none  # Ignorer toutes les branches spécifiques
+    branches:
+      - main
   pull_request:
     branches:
-      - '*'  # Déclencher les pull requests pour toutes les branches
+      - main
 
 jobs:
   setup:
